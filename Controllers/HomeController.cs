@@ -1,25 +1,32 @@
 using Microsoft.AspNetCore.Mvc;
 using MVC.Models;
+using MVC.Models.Services;
 using System.Diagnostics;
 
 namespace MVC.Controllers;
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly ITranslateService _translateService;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ITranslateService translateService)
     {
-        _logger = logger;
+        _translateService = translateService;
     }
 
-    public IActionResult Index()
+    public IActionResult Index(TranslationModel? model = null)
     {
-        return View();
+        return View(model ?? new());
     }
 
-    public IActionResult Privacy()
+    public IActionResult Translate(TranslationModel model)
     {
-        return View();
+        string? result = _translateService.Translate(model.Input);
+        if (result == null)
+            return RedirectToAction("Error");
+
+        model.Result = result;
+
+        return RedirectToAction("Index", model);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -1,17 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
-using MVC.Models;
-using MVC.Models.Services;
+using MVC.Model;
+using MVC.Model.Services;
 using System.Diagnostics;
 
 namespace MVC.Controllers;
-public class HomeController : Controller
+public class HomeController(ITranslateService translateService) : Controller
 {
-    private readonly ITranslateService _translateService;
-
-    public HomeController(ITranslateService translateService)
-    {
-        _translateService = translateService;
-    }
+    private readonly ITranslateService _translateService = translateService;
 
     public IActionResult Index(TranslationModel? model = null)
     {

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using MVC.Models.DbContexts;
-using MVC.Models.Repositories;
-using MVC.Models.Services;
+using MVC.Model.DbContexts;
+using MVC.Model.Repositories;
+using MVC.Model.Services;
 
 namespace MVC;
 
@@ -15,7 +15,7 @@ public class Program
         builder.Services.AddControllersWithViews();
         builder.Services.AddDbContext<TranslationContext>(options => options.UseInMemoryDatabase("MVC"));
         builder.Services.AddTransient<ITranslationRepository, TranslationRepository>();
-        builder.Services.AddTransient<ITranslateService, LeetSpeakService>();
+        builder.Services.AddTransient<ITranslateService, FunTranslationsService>();
 
         var app = builder.Build();
 

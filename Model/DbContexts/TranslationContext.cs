@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace MVC.Models.DbContexts;
+namespace MVC.Model.DbContexts;
 
 public class TranslationContext(DbContextOptions<TranslationContext> options) : DbContext(options)
 {

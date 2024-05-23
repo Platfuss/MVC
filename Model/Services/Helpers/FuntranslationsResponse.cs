@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace MVC.Models.Services.Helpers;
+namespace MVC.Model.Services.Helpers;
 
 public partial class FuntranslationsResponse
 {

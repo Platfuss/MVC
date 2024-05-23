@@ -1,10 +1,10 @@
-﻿using MVC.Models.Repositories;
-using MVC.Models.Services.Helpers;
+﻿using MVC.Model.Repositories;
+using MVC.Model.Services.Helpers;
 using Newtonsoft.Json;
 
-namespace MVC.Models.Services;
+namespace MVC.Model.Services;
 
-public class LeetSpeakService(ITranslationRepository translationRepository) : ITranslateService
+public class FunTranslationsService(ITranslationRepository translationRepository) : ITranslateService
 {
     private readonly ITranslationRepository _translationRepository = translationRepository;
 

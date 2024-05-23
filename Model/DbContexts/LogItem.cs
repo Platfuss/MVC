@@ -1,4 +1,4 @@
-﻿namespace MVC.Models.DbContexts;
+﻿namespace MVC.Model.DbContexts;
 
 public class LogItem(string source, string input, string result)
 {

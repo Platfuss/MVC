@@ -1,4 +1,4 @@
-﻿namespace MVC.Models.Services;
+﻿namespace MVC.Model.Services;
 
 public interface ITranslateService
 {

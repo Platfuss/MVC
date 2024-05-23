@@ -1,4 +1,4 @@
-﻿namespace MVC.Models;
+﻿namespace MVC.Model;
 
 public class TranslationModel
 {

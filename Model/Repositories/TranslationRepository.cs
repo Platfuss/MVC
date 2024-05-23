@@ -1,7 +1,7 @@
-﻿using MVC.Models.DbContexts;
-using MVC.Models.Services;
+﻿using MVC.Model.DbContexts;
+using MVC.Model.Services;
 
-namespace MVC.Models.Repositories;
+namespace MVC.Model.Repositories;
 
 public class TranslationRepository(TranslationContext context) : ITranslationRepository
 {
@@ -13,5 +13,10 @@ public class TranslationRepository(TranslationContext context) : ITranslationRep
         LogItem item = new(sourceName, input, result);
         _context.Add(item);
         return _context.SaveChanges() > 0;
+    }
+
+    public IEnumerable<LogItem> GetAll()
+    {
+        return _context.LogItems.AsEnumerable();
     }
 }

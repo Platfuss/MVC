@@ -7,12 +7,12 @@ public class TranslationRepository(TranslationContext context) : ITranslationRep
 {
     private readonly TranslationContext _context = context;
 
-    public bool Add(ITranslateService source, string input, string result)
+    public async Task<bool> AddAsync(ITranslateService source, string input, string result)
     {
         string sourceName = source.GetType().Name.Replace("Service", string.Empty, StringComparison.CurrentCultureIgnoreCase);
         LogItem item = new(sourceName, input, result);
         _context.Add(item);
-        return _context.SaveChanges() > 0;
+        return await _context.SaveChangesAsync() > 0;
     }
 
     public IEnumerable<LogItem> GetAll()

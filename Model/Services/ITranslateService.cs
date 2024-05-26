@@ -2,5 +2,5 @@
 
 public interface ITranslateService
 {
-    public string? Translate(string input);
+    public Task<string?> TranslateAsync(string input);
 }

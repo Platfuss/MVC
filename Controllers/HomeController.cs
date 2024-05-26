@@ -13,9 +13,9 @@ public class HomeController(ITranslateService translateService) : Controller
         return View(model ?? new());
     }
 
-    public IActionResult Translate(TranslationModel model)
+    public async Task<IActionResult> TranslateAsync(TranslationModel model)
     {
-        string? result = _translateService.Translate(model.Input);
+        string? result = await _translateService.TranslateAsync(model.Input);
         if (result == null)
             return RedirectToAction("Error");
 

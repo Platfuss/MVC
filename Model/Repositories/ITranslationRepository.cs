@@ -5,6 +5,6 @@ namespace MVC.Model.Repositories;
 
 public interface ITranslationRepository
 {
-    bool Add(ITranslateService source, string input, string result);
+    Task<bool> AddAsync(ITranslateService source, string input, string result);
     IEnumerable<LogItem> GetAll();
 }

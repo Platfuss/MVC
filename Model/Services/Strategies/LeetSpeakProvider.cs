@@ -6,13 +6,13 @@ public class LeetSpeakProvider : ITranslationProvider
 {
     private readonly HttpClient _httpClient = new() { BaseAddress = new Uri(@"https://api.funtranslations.com/") };
 
-    public string? GetTranslation(string input)
+    public async Task<string?> GetTranslationAsync(string input)
     {
         var content = new FormUrlEncodedContent(new Dictionary<string, string>() {
             { "text", input }
         });
 
-        string resultAsString = _httpClient.PostAsync(@"translate/leetspeak.json", content).Result.Content.ReadAsStringAsync().Result;
+        string resultAsString = await _httpClient.PostAsync(@"translate/leetspeak.json", content).Result.Content.ReadAsStringAsync();
         var responseConverted = JsonConvert.DeserializeObject<FuntranslationsResponse>(resultAsString);
         if (responseConverted?.Contents?.Translated == null)
             return null;

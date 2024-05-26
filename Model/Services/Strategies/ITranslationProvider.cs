@@ -1,5 +1,5 @@
 ﻿namespace Model.Services.Strategies;
 public interface ITranslationProvider
 {
-    public string? GetTranslation(string input);
+    public Task<string?> GetTranslationAsync(string input);
 }

@@ -8,10 +8,10 @@ public class FunTranslationsService(ITranslationRepository translationRepository
     private readonly ITranslationRepository _translationRepository = translationRepository;
     private readonly ITranslationProvider _translationProvider = translationProvider;
 
-    public string? Translate(string input)
+    public async Task<string?> TranslateAsync(string input)
     {
-        string? response = _translationProvider.GetTranslation(input);
-        if (response == null || !_translationRepository.Add(source: this, input, response))
+        string? response = await _translationProvider.GetTranslationAsync(input);
+        if (response == null || !(await _translationRepository.AddAsync(source: this, input, response)))
             return null;
 
         return response;

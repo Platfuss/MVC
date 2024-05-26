@@ -29,4 +29,30 @@ public class FunTranslationsServiceTest
 
         Assert.Equal(translation, output);
     }
+
+    [Fact]
+    public void Translate_ShouldReturnNull_OnFailedTranslation()
+    {
+        string input = "test";
+        _translationProviderMock.Setup(x => x.GetTranslation(It.IsAny<string>())).Returns(() => null);
+        _translationRepoMock.Setup(x => x.Add(It.IsAny<ITranslateService>(), It.IsAny<string>(), It.IsAny<string>()))
+            .Returns(() => true);
+
+        string? translation = _translationsService.Translate(input);
+
+        Assert.Null(translation);
+    }
+
+    [Fact]
+    public void Translate_ShouldReturnNull_OnFailedDatabaseInsert()
+    {
+        string test = "test";
+        _translationProviderMock.Setup(x => x.GetTranslation(It.IsAny<string>())).Returns(() => test);
+        _translationRepoMock.Setup(x => x.Add(It.IsAny<ITranslateService>(), It.IsAny<string>(), It.IsAny<string>()))
+            .Returns(() => false);
+
+        string? translation = _translationsService.Translate(test);
+
+        Assert.Null(translation);
+    }
 }

@@ -13,15 +13,13 @@ public class HomeController(ITranslateService translateService) : Controller
         return View(model ?? new());
     }
 
-    public async Task<IActionResult> TranslateAsync(TranslationModel model)
+    public async Task<JsonResult> TranslateAsync(string input)
     {
-        string? result = await _translateService.TranslateAsync(model.Input);
+        string? result = await _translateService.TranslateAsync(input);
         if (result == null)
-            return RedirectToAction("Error");
+            return Json("Error - translation not found");
 
-        model.Result = result;
-
-        return RedirectToAction("Index", model);
+        return Json(result);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

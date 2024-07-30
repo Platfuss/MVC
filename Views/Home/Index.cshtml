@@ -5,13 +5,25 @@
 
 <div class="text-center">
     <h3 class="display-2">Funny translator :)</h3>
-    <form asp-controller="Home" asp-action="Translate">
-        <label class="mt-4">Input:</label>
-        <input class="form-control" type="text" asp-for="Input"/>
+    <label class="mt-4">Input:</label>
+    <input class="form-control" id="input" />
 
-        <label class="mt-4">Result:</label>
-        <input class="form-control" type="text" asp-for="Result" readonly/>
+    <label class="mt-4">Result:</label>
+    <input class="form-control" id="output" readonly/>
 
-        <button class="btn-primary mt-3" type="submit">Confirm</button>
-    </form>
+    <button class="btn-primary mt-3" type="submit" id="confirmBtn">Confirm</button>
 </div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $("#confirmBtn").on('click', function () {
+                let data = { input: $("#input").val() }
+                $.get("/home/Translate", data, function (resp) {
+                    $("#output").val(resp)
+                })
+            })
+        })
+
+    </script>
+} 

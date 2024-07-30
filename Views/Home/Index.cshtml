@@ -9,7 +9,7 @@
     <input class="form-control" id="input" />
 
     <label class="mt-4">Result:</label>
-    <input class="form-control" id="output" readonly/>
+    <input class="form-control" id="output" readonly />
 
     <button class="btn-primary mt-3" type="submit" id="confirmBtn">Confirm</button>
 </div>
@@ -18,12 +18,16 @@
     <script>
         $(document).ready(function () {
             $("#confirmBtn").on('click', function () {
-                let data = { input: $("#input").val() }
-                $.get("/home/Translate", data, function (resp) {
+                $.ajax({
+                    type: "GET",
+                    url: "/home/Translate",
+                    data: { input: $("#input").val() },
+                    dataType: "json",
+                    contentType: "application/json;charset=utf-8"
+                }).done(function (resp) {
                     $("#output").val(resp)
                 })
             })
         })
-
     </script>
 } 

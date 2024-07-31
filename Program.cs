@@ -14,7 +14,7 @@ public class Program
 
         // Add services to the container.
         builder.Services.AddControllersWithViews();
-        builder.Services.AddDbContext<TranslationContext>(options => options.UseInMemoryDatabase("MVC"));
+        builder.Services.AddDbContext<TranslationContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
         builder.Services.AddTransient<ITranslationRepository, TranslationRepository>();
         builder.Services.AddTransient<ITranslationProvider, LeetSpeakProvider>();
         builder.Services.AddTransient<ITranslateService, FunTranslationsService>();

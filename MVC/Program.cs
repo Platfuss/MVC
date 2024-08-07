@@ -18,12 +18,12 @@ public class Program
         builder.Services.AddDbContext<TranslationContext>(options =>
         {
             IDictionary envVar = Environment.GetEnvironmentVariables();
-            //"Default": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=FunnyTranslator;Integrated Security=True;Connect Timeout=60"
-            string dataSource = (envVar?.Contains("Server") ?? false) ? envVar["Server"]!.ToString()! : @"localhost";
-            string initialCatalog = (envVar?.Contains("InitialCatalog") ?? false) ? envVar["InitialCatalog"]!.ToString()! : @"FunnyTranslator";
-            string port = (envVar?.Contains("Port") ?? false) ? envVar["Port"]!.ToString()! : "1433";
+            string dataSource = GetDictionaryValueOrDefault(envVar, "Server", "localhost");
+            string port = GetDictionaryValueOrDefault(envVar, "Port", "1433");
+            string initialCatalog = GetDictionaryValueOrDefault(envVar, "InitialCatalog", "FunnyTranslator");
+            string saPassword = GetDictionaryValueOrDefault(envVar, "SaPassword", "Password_123#");
 
-            options.UseSqlServer($@"Data Source={dataSource},{port};Initial Catalog={initialCatalog};Integrated Security=True;Connect Timeout=60");
+            options.UseSqlServer($@"Server={dataSource},{port};Initial Catalog={initialCatalog};User ID=SA;TrustServerCertificate=True;Password={saPassword};Connect Timeout=30");
         });
         builder.Services.AddTransient<ITranslationRepository, TranslationRepository>();
         builder.Services.AddTransient<ITranslationProvider, LeetSpeakProvider>();
@@ -56,4 +56,6 @@ public class Program
 
         app.Run();
     }
+
+    private static string GetDictionaryValueOrDefault(IDictionary dictionary, string key, string defaultValue) => (dictionary?.Contains(key) ?? false) ? dictionary[key]!.ToString()! : defaultValue;
 }
